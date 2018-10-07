@@ -13,7 +13,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+//#include <string.h>
 
 #include "harness.h"
 #include "queue.h"
@@ -26,9 +26,9 @@ queue_t *q_new()
 {
     queue_t *q;
     /* What if malloc returned NULL? */
-    if (!(q = malloc(sizeof(queue_t)))) {
+    if (!(q = malloc(sizeof(queue_t))))
         return NULL;
-    }
+
     q->head = q->tail = NULL;
     q->size = 0;
     return q;
@@ -80,9 +80,9 @@ bool q_insert_head(queue_t *q, char *s)
         return false;
     }
     int i;
-    for (i = 0; i < str_size; ++i) {
+    for (i = 0; i < str_size; ++i)
         *(str_cp + i) = *(s + i);
-    }
+
     newh->value = str_cp;
     q->head = newh;
     if (!q->size)
@@ -120,13 +120,13 @@ bool q_insert_tail(queue_t *q, char *s)
         return false;
     }
     int i;
-    for (i = 0; i < str_size; ++i) {
+    for (i = 0; i < str_size; ++i)
         *(str_cp + i) = *(s + i);
-    }
+
     newt->value = str_cp;
-    if (q->size) {
+    if (q->size)
         q->tail->next = newt;
-    } else
+    else
         q->head = newt;
     q->tail = newt;
     q->size++;
@@ -148,9 +148,9 @@ bool q_remove_head(queue_t *q, char *sp, size_t bufsize)
         return false;
     if (sp) {
         int i;
-        for (i = 0; i < bufsize - 1; ++i) {
+        for (i = 0; i < bufsize - 1; ++i)
             *(sp + i) = *(q->head->value + i);
-        }
+
         *(sp + bufsize - 1) = '\0';
     }
     free(q->head->value);
